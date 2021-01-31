@@ -1,6 +1,7 @@
 # CDP
 Conversational date parser
 
+Performs context aware parsing of srings like 'year to date' or 'Q3 2020' or 'march-april'
 
 ### Installation
 ```bash
