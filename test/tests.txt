@@ -1,0 +1,20 @@
+# Conversational
+# ===
+YTD
+March through november 
+today
+yesterday
+last week
+this week
+
+# Ranges
+1/1 - 2/1
+March 23 through April 20th 2020
+Aug 1st - Match 1st
+2020-01-01 through 2021-02-01
+2020
+29JAN21-24FEB21
+29/1/2021-4/2/21
+1/1/20-1/2/21
+
+
