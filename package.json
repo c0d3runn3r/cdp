@@ -1,6 +1,6 @@
 {
   "name": "conversational-date-parser",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Context aware parsing of date like strings",
   "main": "index.js",
   "scripts": {

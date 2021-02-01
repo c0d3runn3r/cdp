@@ -122,8 +122,12 @@ let date_tests=[
 		today: new Date(2019,0,30),	// Jan 30 2019
 		output: [{"year": 2020,"month":1,"day":1},{"year":2021,"month":1,"day":2}]
 
-	}
+	},
+	{
+		input: "09-01-2020",
+		output: [{"year": 2020,"month":9,"day":1},{"year":2020,"month":9,"day":1}]
 
+	}
  
 ];
 

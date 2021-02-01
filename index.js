@@ -118,13 +118,14 @@ class Cdp {
 		let strings=str
 				.replace(/\s+/g," ")							// Clean whitespace
 				.replace(/(\d)(st|ng|rd|th)/g,"$1")				// Remove unnecessary suffixes
-				//.replace(/[^a-z0-9\-\/]/g," ")					// Remove anything that is not a number, letter, or / -
+				//.replace(/[^a-z0-9\-\/]/g," ")				// Remove anything that is not a number, letter, or / -
 				.toLowerCase()									// Lowercase
 				.split(/\b(through|thru|until|to)\b/)			// Split
 				.filter((s)=>(s!="through" && s!="thru" && s!="until" && s!="to"));		// Capture groups remain in output, we have to remove them
 
 		// If there is only one hyphen, it's a splitter 
-		if(strings.length<2 && strings[0].match(/\-/)) {
+		let hyphens=strings[0].match(/\-/g);
+		if(strings.length<2 && hyphens && hyphens.length==1) {
 
 			strings = strings[0].split(/\-/);
 		}					
@@ -182,7 +183,7 @@ class Cdp {
 	 */
 	parse_single(str, ord) {
 
-		// console.log(`***** parse_single called with '${str}'`);
+		//console.log(`***** parse_single called with '${str}'`);
 
 		let year, month, day;
 
