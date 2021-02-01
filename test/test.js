@@ -24,13 +24,24 @@ let conversational_tests=[
 	{
 		input: "today",
 		today: new Date(2021,0,30),	// Jan 30 2021
-		output: [{"year":2021,"month":1,"day":30}]
+		output: [{"year":2021,"month":1,"day":30}, {"year":2021,"month":1,"day":30}]
 
 	},
 	{
 		input: "yesterday",
 		today: new Date(2021,0,30),	// Jan 30 2021
-		output: [{"year":2021,"month":1,"day":29}]
+		output: [{"year":2021,"month":1,"day":29}, {"year":2021,"month":1,"day":29}]
+
+	},
+	{
+		input: "Q1 2020",
+		output: [{"year":2020,"month":1,"day":1},{"year":2020,"month":3,"day":31}]
+
+	},
+	{
+		input: "Q3",
+		today: new Date(2019,0,30),	// Jan 30 2019
+		output: [{"year":2019,"month":7,"day":1},{"year":2019,"month":9,"day":30}]
 
 	},
 	{
@@ -69,17 +80,6 @@ let date_tests=[
 	{
 		input: "2020-01-9 through 2021-02-01",
 		output: [{"year":2020,"month":1,"day":9},{"year":2021,"month":2,"day":1}]
-
-	},
-	{
-		input: "Q1 2020",
-		output: [{"year":2020,"month":1,"day":1},{"year":2020,"month":3,"day":31}]
-
-	},
-	{
-		input: "Q3",
-		today: new Date(2019,0,30),	// Jan 30 2019
-		output: [{"year":2019,"month":7,"day":1},{"year":2019,"month":9,"day":30}]
 
 	},
 	{
@@ -125,8 +125,6 @@ let date_tests=[
 	}
 
  
-
-
 ];
 
 
@@ -161,5 +159,28 @@ describe("Date and range tests", function(){
 		});
 	}
 });
+
+
+describe("Functions", function(){
+
+	it(".toDate()", function() {
+
+
+		// HACK ... this isn't a very good unit test, since it is also testing the "today" parse as well as whether CDP sets end_of_day properly
+
+		let cdp=new CDP(new Date(2021,0,30));
+		let results=cdp.parse("today");
+
+		assert.equal(results[0].toDate().getTime(), 1611993600000);
+		assert.equal(results[1].toDate().getTime(), 1612079999999);
+
+
+
+
+	});
+
+
+});
+
 
 

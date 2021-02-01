@@ -15,8 +15,15 @@ class Result {
 		this.month=(typeof(m)!="undefined")?parseInt(m):(1+today.getMonth());
 		this.day=(typeof(d)!="undefined")?parseInt(d):(today.getDate());
 
-		this._flags=flags;
+		this._year_inferred=("year_inferred" in flags)?flags.year_inferred:false;		// Was our year inferred, or specified directly?
+		this._month_inferred=("month_inferred" in flags)?flags.month_inferred:false;	// Was our month inferred, or specified directly?
+		this._end_of_day=("end_of_day" in flags)?flags.end_of_day:false;				// Whether this result indicates the first second in the date, or the last
 
+	}
+
+	clone() {
+
+		return new Result(this.year, this.month, this.day, {year_inferred: this.year_inferred, month_inferred: this.month_inferred, end_of_day: this.end_of_day});
 	}
 
 
@@ -31,36 +38,53 @@ class Result {
 		}
 	}
 
+	toDate(){
+
+		// Create a new Date that represents our result
+		let d=new Date(this.year, this.month-1, this.day);
+
+		// If we represent the end of day (rather than the beginning), we need to set that here
+		if(this._end_of_day) {
+
+			d.setHours(23);
+			d.setMinutes(59);
+			d.setSeconds(59);
+			d.setMilliseconds(999);
+		}
+
+		return d;
+	}
+
 
 	get year_inferred() {
 
-		return (('year_inferred' in this._flags) && this._flags.year_inferred);
+		return this._year_inferred;
 	}
 
 	set year_inferred(val) {
 
-		this._flags.year_inferred=val?true:false;
+		this._year_inferred=val?true:false;
 	}
 
 	get month_inferred() {
 
-		return (('month_inferred' in this._flags) && this._flags.month_inferred);
+		return this._month_inferred;
 	}
 
 	set month_inferred(val) {
 
-		this._flags.month_inferred=val?true:false;
+		this._month_inferred=val?true:false;
 	}
 
-	// get day_inferred() {
+	set end_of_day(val) {
 
-	// 	return ('day_inferred' in this._flags);
-	// }
+		this._end_of_day=val?true:false;
+	}
 
-	// set day_inferred(val) {
+	get end_of_day() {
 
-	// 	this._flags.day_inferred=val?true:false;
-	// }
+		return this._end_of_day;
+	}
 
 }
 
@@ -122,23 +146,24 @@ class Cdp {
 			}
 		}
 		
-		// If we have more than one date range, filter so that we are inclusive
-		if(results.length>2) {
 
-			results=[results[0], results[results.length-1]];
-
-			// console.log("trimming!");
-		}
+		if(results.length) {
 
 
-		// If one of the dates has an inferred part, copy from the other one
-		if(results.length==2) {
+			// If we have more than one date range, filter so that we are inclusive
+			if(results.length>2) results=[results[0], results[results.length-1]];
 
+			// If we have less than one date range, duplicate the first one 
+			if(results.length<2) results.push(results[0].clone());
+
+			// If one of the dates has an inferred part, copy from the other one
 			if(results[0].year_inferred && (!results[1].year_inferred)) { results[0].year=results[1].year; results[0].year_inferred=false; }
 			if(results[1].year_inferred && (!results[0].year_inferred)) { results[1].year=results[0].year; results[1].year_inferred=false; }
-
 			if(results[0].month_inferred && (!results[1].month_inferred)) { results[0].year=results[1].year; results[0].month_inferred=false; }
 			if(results[1].month_inferred && (!results[0].month_inferred)) { results[1].year=results[0].year; results[1].month_inferred=false; }
+
+			// Second result should be end of day (so 1/1 through 1/1 becomes all day long)
+			results[1].end_of_day=true;
 
 		}
 
