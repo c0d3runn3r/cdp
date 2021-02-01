@@ -2,7 +2,12 @@ const assert=require("assert");
 const CDP=require("../index.js");
 
 
-
+// Last quarter
+// current week
+// end of week
+// this month
+// current month
+// end of month
 
 
 

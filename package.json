@@ -1,10 +1,14 @@
 {
-  "name": "cdp",
-  "version": "1.0.0",
-  "description": "",
+  "name": "conversational-date-parser",
+  "version": "1.0.1",
+  "description": "Context aware parsing of date like strings",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
+  },
+    "repository": {
+    "type": "git",
+    "url": "https://github.com/c0d3runn3r/cdp"
   },
   "author": "",
   "license": "ISC",

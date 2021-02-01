@@ -1,12 +1,12 @@
 # CDP
 Conversational date parser
 
-Performs context aware parsing of srings like 'year to date' or 'Q3 2020' or 'march-april'
+Performs context aware parsing of strings like 'year to date' or 'Q3 2020' or 'march-april'
 
 ### Installation
 ```bash
 npm install --save conversational-date-parser
-mocha
+npm run test
 ```
 
 ### Usage
