@@ -260,6 +260,15 @@ class Cdp {
 			];
 		}
 
+		// A JS timestamp.  HACK - Note that this will not work for the first few seconds after the epoch since it will be confused with a year!!!
+		if(str.match(/^\d{5,}$/)) {
+
+			let d=new Date(parseInt(str));
+			return [ new Result(d.getFullYear(), d.getMonth()+1, d.getDate(), { month_inferred: false, day_inferred: false })];
+		}
+
+
+
 		// Convert dashes to slashes and cleanup duplicate/trailing/leading slashes and whitespace
 		str=str.replace(/\-/g,"/").replace(/\/+/g,"/").replace(/\/$/,"").replace(/^\//,"").trim();
 
