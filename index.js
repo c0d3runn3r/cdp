@@ -279,6 +279,14 @@ class Cdp {
 			return[ new Result(parseInt(match[1]),parseInt(match[2]),parseInt(match[3]))];
 		}
 
+		// M/D/YYYY format
+		match=str.match(/(\d{1,2})\/(\d{1,2})\/(\d\d\d\d)/);
+		if(match) {
+
+			return[ new Result(parseInt(match[3]),parseInt(match[1]),parseInt(match[2]))];
+		}
+
+
 		// M/D/YY format
 		match=str.match(/(\d{1,2})\/(\d{1,2})\/(\d\d)/);
 		if(match) {

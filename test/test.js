@@ -132,7 +132,12 @@ let date_tests=[
 		input: "1359705600000-1362124799999",
 		output: [{"year": 2013,"month":2,"day":1},{"year":2013,"month":2,"day":28}]
 
-	}
+	},
+	{
+		input: "09-01-2021",
+		output: [{"year": 2021,"month":9,"day":1},{"year":2021,"month":9,"day":1}]
+
+	},
 
 
 
